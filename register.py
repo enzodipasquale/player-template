@@ -5,18 +5,8 @@ import sys
 import requests
 
 
-DEFAULT_SERVER_URL = "https://game-platform-v2-914970891924.us-central1.run.app"
-
-
-def _normalise_server(url: str) -> str:
-    base = (url or "").strip() or DEFAULT_SERVER_URL
-    if not base.startswith(("http://", "https://")):
-        base = "https://" + base.lstrip("/")
-    return base.rstrip("/")
-
-
 def main() -> None:
-    server_url = _normalise_server(os.getenv("SERVER_URL", ""))
+    server_url = os.getenv("SERVER_URL", "https://game-platform-v2-914970891924.us-central1.run.app").rstrip("/")
     github_token = os.getenv("GITHUB_TOKEN", "").strip()
 
     if not github_token:
@@ -29,7 +19,7 @@ def main() -> None:
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {github_token}",
             },
-            json={},
+            json={"player_name": "player-template"},
             timeout=10,
         )
     except Exception as exc:
@@ -46,9 +36,9 @@ def main() -> None:
 
     status = (payload.get("status") or "").lower()
     if status == "registered":
-        print(f"Player registered with id {payload.get('player_id')}.")
+        print(f"Player '{payload.get('player_name')}' registered with id {payload.get('player_id')}.")
     elif status == "already_registered":
-        print(f"Player already registered. Using id {payload.get('player_id')}.")
+        print(f"Player '{payload.get('player_name')}' already registered. Using id {payload.get('player_id')}.")
     else:
         print(f"Registration response: {payload}")
 
