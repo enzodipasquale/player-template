@@ -37,7 +37,7 @@ jobs:
 
     - name: Install dependencies
       if: steps.guard.outputs.enabled == 'true'
-      run: pip install requests
+      run: pip install numpy requests
 
     - name: Run strategy
       if: steps.guard.outputs.enabled == 'true'
