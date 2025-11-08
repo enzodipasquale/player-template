@@ -5,8 +5,23 @@ import sys
 import requests
 
 
+DEFAULT_SERVER_URL = "https://game-platform-v2-914970891924.us-central1.run.app"
+
+
 def main() -> None:
-    server_url = os.getenv("SERVER_URL", "https://game-platform-v2-914970891924.us-central1.run.app").rstrip("/")
+    raw_server = os.getenv("SERVER_URL", "").strip()
+    if raw_server:
+        server_url = raw_server
+    else:
+        server_url = DEFAULT_SERVER_URL
+        print(f"[register] SERVER_URL not set; defaulting to {server_url}", flush=True)
+
+    if not server_url.startswith(("http://", "https://")):
+        server_url = "https://" + server_url.lstrip("/")
+        print(f"[register] Added https:// scheme → {server_url}", flush=True)
+
+    server_url = server_url.rstrip("/")
+    print(f"[register] Using endpoint {server_url}/register", flush=True)
     github_token = os.getenv("GITHUB_TOKEN", "").strip()
 
     if not github_token:
