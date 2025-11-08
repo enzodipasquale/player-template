@@ -1,4 +1,4 @@
-# Panenka Template Player
+# Template Player
 
 Minimal starter repo for the penalty-shootout pilots. Fork / copy it for each new bot.
 
@@ -53,4 +53,4 @@ Minimal starter repo for the penalty-shootout pilots. Fork / copy it for each ne
 
 `strategy.py` currently builds random `"shoot"`/`"keep"` maps (broadcasting `"*"` if alone). Swap in your own logic—just fill those maps with `'0'`, `'1'`, `'2'` per opponent name. The helper already fetches `/status` for you.
 
-That’s it—copy the repo, set the secrets, and you’re ready to launch your own Panenka. Good luck!
+That’s it—copy the repo, set the secrets, and you’re ready to launch your own . Good luck!
