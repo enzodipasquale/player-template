@@ -13,8 +13,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
     my_id = state.get("myPlayerId")
-    player_ids = state.get("playerIds") or []
-    opponents = [pid for pid in player_ids if pid != my_id]
+    opponents = state.get("opponentsIds") or []
 
     if not my_id or not opponents:
         return {"shoot": {}, "keep": {}}
