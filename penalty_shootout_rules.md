@@ -9,6 +9,7 @@ At the start of turn $t$, every $i \in N$ submits
 \[
 a_i(t) = \bigl\{(\texttt{shoot}, M^{\mathrm{S}}_i(t)), (\texttt{keep}, M^{\mathrm{K}}_i(t))\bigr\}.
 \]
+
 where the maps $M^{\mathrm{S}}_i(t), M^{\mathrm{K}}_i(t) : N \setminus \{i\} \rightarrow \{0,1,2\}$ prescribe shooting and keeping directions against each opponent. Labels $0,1,2$ correspond to left, centre, right. A broadcast entry `"*"` is interpreted as a fallback value:
 \[
 M^{\mathrm{S}}_i(t,j) =
