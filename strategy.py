@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-from typing import Any
-
+from typing import Any, Dict
 
 import os
 
@@ -12,7 +11,7 @@ SERVER_URL = os.getenv("SERVER_URL")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 
-def build_action(state):
+def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
     my_id = state.get("myPlayerId")
     player_ids = state.get("playerIds") or []
     opponents = [pid for pid in player_ids if pid != my_id]
@@ -41,7 +40,7 @@ def main():
     status.raise_for_status()
     payload = status.json()
 
-    action = build_action(payload)
+    action = strategy(payload)
     response = requests.post(
         f"{SERVER_URL}/action",
         headers={

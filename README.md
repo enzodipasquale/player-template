@@ -16,14 +16,14 @@ Quick-start kit for a penalty-shootout bot.
 
 ## 2. Registration
 
-1. Confirm the player handle you set in `register.py`—that nickname is what the server will display on leaderboards.
+1. Confirm the player name you set in `register.py`—that nickname is what the server will display on leaderboards.
 2. Register via GitHub Actions (Actions tab → “Scheduled Strategy” → “Run workflow”). The workflow will execute `register.py` before the first scheduled submission, report whether the handle was created, and log the server-issued ID.
 3. If registration fails, double-check the `SERVER_URL` and `GAME_TOKEN` secrets—typos or missing URL schemes (`https://`) are the usual culprits.
 
 ## 3. What the scripts do
 
 - `register.py` validates that `SERVER_URL` and `GITHUB_TOKEN` are present, prints a quick config summary, then calls `/register` with your chosen player name. Run it once per fork (or any time you change the name) so the server links your token to that handle.
-- `strategy.py` fetches `/status`, builds an action, and posts it back via `/action`. The default logic is random; customise it by editing `build_action()` (or adding helper functions) to pick `shoot`/`keep` directions based on the state history, opponent behaviour, etc. The function must still return the same dictionary shape so the payload remains valid.
+- `strategy.py` fetches `/status`, builds an action, and posts it back via `/action`. The default logic is random; customise it by editing `strategy(state)` (or adding helper functions) to pick `shoot`/`keep` directions based on the state history, opponent behaviour, etc. The function must still return the same dictionary shape so the payload remains valid.
 
 Test changes locally by exporting `SERVER_URL` and `GITHUB_TOKEN` and running `python strategy.py`. When you are happy with the behaviour, let the scheduled workflow keep submitting moves.
 
@@ -34,7 +34,23 @@ Test changes locally by exporting `SERVER_URL` and `GITHUB_TOKEN` and running `p
 - `playerIds`: every registered player ID (these are what you target in your action maps).
 - `myPlayerId`: the ID associated with your GitHub token.
 - `opponents`: convenience list of all other IDs.
-- `state`: nested structure that captures past rounds, scores, and other bookkeeping.
+- `state`: nested structure that captures past rounds, scores, and other bookkeeping. For penalty shootout you will see something like:
+  ```json
+  {
+    "round": 12,
+    "scoreboard": {
+      "player-id-A": {"goals": 7, "saves": 4},
+      "player-id-B": {"goals": 5, "saves": 6}
+    },
+    "history": {
+      "1": {
+        "player-id-A": {"shoot": 2, "keep": 1, "scored": true},
+        "player-id-B": {"shoot": 0, "keep": 2, "scored": false}
+      },
+      "...": "..."
+    }
+  }
+  ```
 - `turn`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
