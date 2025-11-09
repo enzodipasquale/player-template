@@ -1,34 +1,32 @@
 #!/usr/bin/env python3
 import os
-from typing import Any, Dict, List
 
 import numpy as np
 import requests
 
 
-PLAYER_NAME = os.getenv("PLAYER_NAME", "player-template").strip()
 SERVER_URL = os.getenv("SERVER_URL")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 
-def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
-    player_map = state.get("playerNames") or {}
-    self_id = player_map.get(PLAYER_NAME)
-    opponents = [pid for name, pid in player_map.items() if name != PLAYER_NAME]
+def build_action(state):
+    my_id = state.get("myPlayerId")
+    player_ids = state.get("playerIds") or []
+    opponents = [pid for pid in player_ids if pid != my_id]
 
-    if not self_id or not opponents:
+    if not my_id or not opponents:
         return {"shoot": {}, "keep": {}}
 
-    shoot_dirs = np.random.randint(0, 3, len(opponents)).tolist()
-    keep_dirs = np.random.randint(0, 3, len(opponents)).tolist()
+    shoot = np.random.randint(0, 3, len(opponents)).tolist()
+    keep = np.random.randint(0, 3, len(opponents)).tolist()
 
     return {
-        "shoot": {pid: int(direction) for pid, direction in zip(opponents, shoot_dirs)},
-        "keep": {pid: int(direction) for pid, direction in zip(opponents, keep_dirs)},
+        "shoot": {pid: int(direction) for pid, direction in zip(opponents, shoot)},
+        "keep": {pid: int(direction) for pid, direction in zip(opponents, keep)},
     }
 
 
-def main() -> None:
+def main():
     if not SERVER_URL:
         raise SystemExit("SERVER_URL env var required")
 
@@ -39,15 +37,14 @@ def main() -> None:
     )
     status.raise_for_status()
     payload = status.json()
-    action = strategy(payload)
 
-    headers = {"Content-Type": "application/json"}
-    if GITHUB_TOKEN:
-        headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
-
+    action = build_action(payload)
     response = requests.post(
         f"{SERVER_URL}/action",
-        headers=headers,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {GITHUB_TOKEN}",
+        },
         json={"action": action},
         timeout=10,
     )
