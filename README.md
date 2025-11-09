@@ -75,27 +75,10 @@ Your `strategy(state)` function must return a dictionary with two maps, one for 
 - `keep` lists the direction you will guard against each opponent.
 - Opponent IDs come straight from `playerIds`/`opponents` in the `/status` payload. If you want to send the same choice to everyone, use `"*"` (an asterisk) as the key.
 
-When the template posts to `/action` it wraps that return value inside a JSON body like this:
-
-```json
-{
-  "action": {
-    "shoot": { "player-id-A": 2, "player-id-B": 1 },
-    "keep":  { "player-id-A": 0, "player-id-B": 2 }
-  }
-}
-```
-
-If you add extra fields (for example `player_name`) make sure they live alongside `action`, not inside it. The server combines the shoot and keep directions when it resolves each round.
+`main()` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
 
 ## 6. GitHub Actions
 
 - `.github/workflows/schedule_strategy.yml` runs every 5 minutes and can also be triggered manually from the Actions tab.
 - Make sure `GAME_TOKEN` and `SERVER_URL` secrets are populated, then watch the workflow logs to confirm submissions.
 
-## 7. Local Iteration
-
-- Install `requests` and `numpy`, export `SERVER_URL` and `GITHUB_TOKEN`, then run `python strategy.py`.
-- `python show_state.py` is handy for dumping the `/status` payload while debugging.
-
-Adjust `strategy()` as you like and let the workflow handle recurring submissions.
