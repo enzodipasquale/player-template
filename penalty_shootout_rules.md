@@ -1,6 +1,6 @@
 # Penalty Shootout Game Rule
 
-Let $N$ be the finite set of active players. Server time is indexed by discrete turns $t = 1,2,\dots$. During each turn all ordered pairs $(i,j)$ with $i \neq j$ are evaluated. The ordered pair $(i,j)$ represents a penalty in which player $i$ shoots on player $j$; the symmetric pair $(j,i)$ is resolved independently in the same turn.
+Let $N$ be the finite set of active players. Server time is indexed by discrete turns $t = 1,2,\dots$. During each turn the platform considers every unordered pair $\{i,j\} \subset N$ with $i \neq j$. For the ordered realisation $(i,j)$ the interpretation is “$i$ shoots on $j$”; the reverse ordering $(j,i)$ is processed in the same turn.
 
 ## Action space
 
@@ -22,29 +22,21 @@ and analogously for $M^{\mathrm{K}}_i(t)$.
 
 The state observed by all players is the history $H(t) = \{h_1,\dots,h_t\}$. For each round $r$, the record
 $$
-h_r = \bigl\{\, (k,\, \Theta_k(r)) : k \in N \,\bigr\} \cup \{(\_turnId, r)\}
+h_r = \bigl\{ (k,\, \Theta_k(r)) : k \in N \bigr\} \cup \bigl\{(\_turnId, r)\bigr\}
 $$
 contains, for every player $k$, the tuple
 $$
-\Theta_k(r) = \bigl(\text{shoot}_k(r),\ \text{keep}_k(r),\ \text{outcome}_k(r)\bigr),
+\Theta_k(r) = \left(\text{shoot}_{k}(r),\, \text{keep}_{k}(r),\, \text{outcome}_{k}(r)\right).
 $$
 where $\text{shoot}_k(r)$ and $\text{keep}_k(r)$ reproduce the canonical direction maps (stored as strings `"0"`, `"1"`, `"2"`). Once the stochastic resolution is complete, $\text{outcome}_k(r)$ records realised indicators $\{\text{opponent} \mapsto \text{goal}\in\{0,1\}\}$; otherwise the field is absent.
 
 ## Match mechanics
 
-Let $P = (p_{ab})_{a,b \in \{0,1,2\}}$ denote the success-probability matrix specified in `penalty_shootout.py`. The default parameterisation is
-$$
-P = \begin{pmatrix}
-0.30 & 0.85 & 0.40\\
-0.60 & 0.25 & 0.50\\
-0.90 & 0.85 & 0.90
-\end{pmatrix},
-$$
-and may be overridden through the environment variables `PENALTY_MATRIX` or `PENALTY_SHOOTER_MATRIX`.
+Let $P = (p_{ab})_{a,b \in \{0,1,2\}}$ denote the success-probability matrix governing shot outcomes. Its structure satisfies $p_{aa} < p_{ab}$ whenever $a \neq b$: shots aimed away from the keeper’s chosen direction succeed with strictly greater probability than shots aligned with it.
 
 Fix a duel $(i,j)$ in round $t$. Let
 $$
-a = M^{\mathrm{S}}_i(t,j), \qquad b = M^{\mathrm{K}}_j(t,i).
+a = M^{\mathrm{S}}_{i}(t,j), \qquad b = M^{\mathrm{K}}_{j}(t,i).
 $$
 Conditional on $(a,b)$ the platform draws
 $$
