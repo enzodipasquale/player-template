@@ -73,7 +73,18 @@ Your `strategy(state)` function must return a dictionary with two maps, one for 
 
 - `shoot` lists the direction (`0`, `1`, or `2`) you will shoot against each opponent.
 - `keep` lists the direction you will guard against each opponent.
-- Opponent IDs come straight from `playerIds`/`opponents` in the `/status` payload. If you want to send the same choice to everyone, use `"*"` (an asterisk) as the key.
+- Opponent IDs come straight from `playerIds`/`opponents` in the `/status` payload.
+
+Example: if the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
+
+```json
+{
+  "shoot": { "player-B": 2, "player-C": 0 },
+  "keep":  { "player-B": 1, "player-C": 1 }
+}
+```
+
+`main()` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
 
 `main()` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
 
