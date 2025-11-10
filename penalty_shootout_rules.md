@@ -13,31 +13,29 @@ The labels 0, 1, 2 correspond respectively to left, centre, and right. Players m
 
 ## State tracked by the server
 
-The server maintains a turn-by-turn log denoted $H(t) = \{h_1, \dots, h_t\}$. Each entry $h_r$ is a dictionary with two components:
+The public state is a history $H(t) = \{h_1, \dots, h_t\}$. Each entry is a dictionary
 
-- the key `_turnId` with value $r$
-- one key per player identifier, each mapped to a record of that player’s directions and (if known) realised outcome for round $r$
-
-For a player labelled $k$, the stored record is
 \[
-R_k(r) = \{ "shoot": S_k(r),\ "keep": K_k(r),\ "outcome": O_k(r) \}.
+h_r = \{ (k, \Theta_k(r)) : k \in N \} \cup \{ (\_\text{turnId}, r) \}
 \]
 
-- $S_k(r)$ assigns a direction (string "0", "1", or "2") to every opponent shot at by $k$ in round $r$.
-- $K_k(r)$ assigns the keeper direction to every opponent who shot at $k$.
-- $O_k(r)$ appears only after the duel has been resolved; it maps each opponent to a realised value `goal = 1` or `goal = 0`.
+where
 
-If outcome information is not yet available for a pairing, the `"outcome"` entry is omitted for that round.
-
-## Match payoffs
-
-Let $P$ be the $3 \times 3$ matrix of success probabilities. Row indices correspond to shooting directions and column indices to keeping directions. The matrix is strictly dominated on the diagonal, i.e.
 \[
-P[d, d] < P[u, v] \qquad \text{for every direction } d \text{ and all ordered pairs } (u,v) \text{ with } u \neq v.
+\Theta_k(r) = (\text{shoot}_k(r), \text{keep}_k(r), \text{outcome}_k(r)).
 \]
 
-A duel in round $t$ between shooter $i$ and keeper $j$ unfolds in three steps:
+The `shoot` and `keep` components repeat the canonical direction maps (strings "0", "1", "2"). The optional `outcome` component records, for each opponent, whether the realised shot in that round was a goal (1) or a save (0); it appears only after outcomes have been processed.
 
-1. After broadcast resolution the server reads the directions $S_i(r)[j]$ and $K_j(r)[i]$.
-2. It draws a Bernoulli random variable with success probability $P[S_i(r)[j], K_j(r)[i]]$.
-3. A success is registered as a goal for the shooter; a failure is recorded as a save for the keeper. The symmetric duel $(j,i)$ is evaluated in the same turn.
+## Payoff mechanism
+
+Let P be the 3 × 3 success-probability matrix whose rows index shooting directions and columns index keeping directions. The matrix satisfies the dominance property `P[d, d] < P[u, v]` for every direction d and any ordered pair (u, v) with u ≠ v. Intuitively, a shot aimed away from the keeper’s chosen direction strictly improves the conversion probability relative to a shot that matches it.
+
+During round t, a duel involving shooter i and keeper j proceeds as follows:
+
+1. The server reads the directions `a = shoot_i(j)` and `b = keep_j(i)` after broadcast resolution.
+2. A Bernoulli random draw succeeds with probability `P[a, b]`.
+3. Success is recorded as a goal for i; failure is recorded as a save for j.
+4. Payoffs are realised outcomes: the shooter receives `R_goal` for a goal, the keeper receives `R_save` for a save. Default values satisfy `R_goal = R_save = 1`, with alternative parameters accepted via the environment variables `PENALTY_GOAL_REWARD` and `PENALTY_SAVE_REWARD`.
+
+The same procedure is applied to the symmetric event (j, i) within the turn. Continuous play arises because the scheduler triggers strategy submissions at a fixed cadence.
