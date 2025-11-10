@@ -2,20 +2,15 @@
 
 Let N denote the finite set of active players. Server time evolves in discrete turns (t = 1, 2, …). During each turn the platform inspects every unordered pair {i, j} with i ≠ j. For the directed pairing (i, j) we read the event as “player i shoots on player j”; the reverse pairing (j, i) is evaluated in the same turn.
 
-## State tracked by the server
+## State space
 
-The server maintains a turn-by-turn log `H(t) = {h₁, …, h_t}`. Each entry `h_r` is a dictionary with:
+The state at turn t is the set `H(t) = {h₁, …, h_t}`. Each `h_r` contains one entry per player identifier, and each player entry holds three maps:
 
-- `_turnId`: the round counter `r`
-- one entry per player identifier, storing that player’s record for round `r`
+- `shoot`: opponents → direction (`"0"`, `"1"`, or `"2"`)
+- `keep`: opponents → direction (`"0"`, `"1"`, or `"2"`)
+- `outcome`: opponents → realised result (`goal = 1` or `goal = 0`)
 
-A player record contains three fields:
-
-- `shoot`: a map from opponent identifiers to the shooter’s chosen direction (`"0"`, `"1"`, or `"2"`)
-- `keep`: a map from opponent identifiers to the keeper’s chosen direction
-- `outcome`: after the duel finishes, this records for each opponent whether the shot became a goal (`1`) or was saved (`0`)
-
-If the outcome is not yet known, the `outcome` field is retained but remains empty for that round.
+Until a duel resolves, the corresponding row in `outcome` remains empty.
 
 ## Action space
 
