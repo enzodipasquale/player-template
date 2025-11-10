@@ -5,6 +5,7 @@ on:
 
 jobs:
   register:
+    continue-on-error: true
     runs-on: ubuntu-latest
 
     steps:
