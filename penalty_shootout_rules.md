@@ -22,9 +22,9 @@ A player record contains three fields:
 
 - `shoot`: a map from opponent identifiers to the shooter’s chosen direction (`"0"`, `"1"`, or `"2"`)
 - `keep`: a map from opponent identifiers to the keeper’s chosen direction
-- `outcome`: (optional) once the duel has been resolved, a map from opponent identifiers to the realised result (`goal = 1` or `goal = 0`)
+- `outcome`: once the duel has been resolved, a map from opponent identifiers to the realised result (`goal = 1` or `goal = 0`)
 
-If the outcome is not yet known, the `outcome` field is omitted for that round.
+If the outcome is not yet known, the `outcome` field is retained but remains empty for that round.
 
 ## Payoff mechanism
 
