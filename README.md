@@ -53,20 +53,7 @@ Store or inspect this data to drive smarter strategies.
 
 ## 5. Building the action payload
 
-Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For example:
-
-```json
-{
-  "shoot": { "player-id-A": 2, "player-id-B": 1 },
-  "keep":  { "player-id-A": 0, "player-id-B": 2 }
-}
-```
-
-- `shoot` lists the direction (integers `0`, `1`, or `2`) you will shoot against each opponent.
-- `keep` lists the direction you will guard against each opponent.
-- Opponent IDs come straight from `playerIds`/`opponentsIds` in the `/status` payload.
-
-Example: if the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
+Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For exampleif the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
 
 ```json
 {
@@ -74,9 +61,13 @@ Example: if the server identifies you as `"player-A"` and you face opponents `"p
   "keep":  { "player-B": 1, "player-C": 1 }
 }
 ```
+where
+- `shoot` lists the direction (integers `0`, `1`, or `2`) you will shoot against each opponent.
+- `keep` lists the direction you will guard against each opponent.
+- Opponent IDs come straight from `playerIds`/`opponentsIds` in the `/status` payload.
 
 `main()` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
 
-`main()` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
+
 
 
