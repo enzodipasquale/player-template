@@ -26,6 +26,7 @@ jobs:
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
           GITHUB_TOKEN: ${{ secrets.GAME_TOKEN }}
+          PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
         run: python register.py
 
 
