@@ -1,6 +1,5 @@
 # Player Template
 
-Quick-start kit for a penalty-shootout bot. All shoot/keep directions are integers (`0`, `1`, `2`) everywhere in the protocol.
 
 ## 1. Quick Start Checklist
 
