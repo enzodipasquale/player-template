@@ -6,20 +6,13 @@ Quick-start kit for a penalty-shootout bot. All shoot/keep directions are intege
 
 1. **Copy the template** – Fork this repository into your own GitHub account if you want the automated player to run. You can clone first to experiment locally, but GitHub Actions only executes in your fork.
 2. **Set your player name** – Edit `register.py` and change `PLAYER_NAME` to the display name you want the server to show.
-3. **Register once (locally or via workflow)**:
-   ```bash
-   export SERVER_URL="https://ubx-dev-914970891924.us-central1.run.app"
-   export GITHUB_TOKEN="ghp_example123"
-   python register.py
-   ```
-   Alternatively dispatch `.github/workflows/register.yml` from the Actions tab; it runs the same script.
-4. **Add secrets for automation** – In your fork visit **Settings → Secrets and variables → Actions** and create:
+3. **Add secrets for automation** – In your fork visit **Settings → Secrets and variables → Actions** and create:
    - `GAME_TOKEN` – a fine-grained GitHub token with `Actions` and `Workflows` read/write scopes.
    - `SERVER_URL` – the base UBX server URL.
 
 ## 2. Registration
 
-Either run `python register.py` locally (after exporting `SERVER_URL`/`GITHUB_TOKEN`) or trigger `.github/workflows/register.yml`. Do this whenever you change `PLAYER_NAME`; the response includes the assigned `player_id`.
+Run `.github/workflows/register.yml` from the Actions tab whenever you change `PLAYER_NAME`; the response includes the assigned `player_id`.
 
 ## 3. What the scripts do
 
