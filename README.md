@@ -61,6 +61,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
+  Here `player-id-A` aims at `player-id-B` with direction 2 and defends B with direction 0, and so on; the `outcome` map shows which shots became goals (1) or saves (0) in that turn.
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
