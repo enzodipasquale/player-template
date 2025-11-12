@@ -61,7 +61,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  Here `player-id-A` aims at `player-id-B` with direction 2 (`shoot`) and defends B with direction 0 (`keep`), and scores a goal against B (`outcome`).
+  For instance `state[0]["player-id-A"]["shoot"]["player-id-B"]` is `2` (A shoots right), `state[0]["player-id-A"]["keep"]["player-id-B"]` is `0` (A keeps left), and `state[0]["player-id-A"]["outcome"]["player-id-B"]["goal"]` is `1` (A’s shot scored).
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
