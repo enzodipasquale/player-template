@@ -31,28 +31,16 @@ Run `.github/workflows/register.yml` from the Actions.
     {
       "_turnId": 1,
       "player-id-A": {
-        "shoot": { "player-id-B": 2, "player-id-C": 0 },
-        "keep":  { "player-id-B": 0, "player-id-C": 1 },
-        "scores": {
-          "player-id-B": true,
-          "player-id-C": false
-        }
+        "player-id-B": { "shoot": 2, "keep": 0, "score": true },
+        "player-id-C": { "shoot": 0, "keep": 1, "score": false }
       },
       "player-id-B": {
-        "shoot": { "player-id-A": 1, "player-id-C": 2 },
-        "keep":  { "player-id-A": 2, "player-id-C": 0 },
-        "scores": {
-          "player-id-A": false,
-          "player-id-C": true
-        }
+        "player-id-A": { "shoot": 1, "keep": 2, "score": false },
+        "player-id-C": { "shoot": 2, "keep": 0, "score": true }
       },
       "player-id-C": {
-        "shoot": { "player-id-A": 0, "player-id-B": 1 },
-        "keep":  { "player-id-A": 1, "player-id-B": 2 },
-        "scores": {
-          "player-id-A": true,
-          "player-id-B": false
-        }
+        "player-id-A": { "shoot": 0, "keep": 1, "score": true },
+        "player-id-B": { "shoot": 1, "keep": 2, "score": false }
       }
     },
     {
@@ -61,7 +49,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  In this snapshot, `player-id-A` shoots right (direction 2) against `player-id-B`, keeps left (direction 0) against B, scores againts B..
+  In this snapshot, `state[0]["player-id-A"]["player-id-B"]["shoot"]` is `2` (A shoots right against B), `state[0]["player-id-A"]["player-id-B"]["keep"]` is `0` (A keeps left against B), and `state[0]["player-id-A"]["player-id-B"]["score"]` is `true` (A’s shot on B scored).
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
