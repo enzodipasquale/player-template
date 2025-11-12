@@ -49,7 +49,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  In this snapshot, `state[0]["player-id-A"]["player-id-B"]["shoot"]` is `2` (A shoots right against B), `state[0]["player-id-A"]["player-id-B"]["keep"]` is `0` (B dives left against A), and `state[0]["player-id-A"]["player-id-B"]["score"]` is `true` (A’s shot on B scored).
+  In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summerizes the penalty with A shooting and B keeping: A shoots right, B dives left, goal is scored.
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
