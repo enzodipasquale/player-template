@@ -33,25 +33,25 @@ Run `.github/workflows/register.yml` from the Actions.
       "player-id-A": {
         "shoot": { "player-id-B": 2, "player-id-C": 0 },
         "keep":  { "player-id-B": 0, "player-id-C": 1 },
-        "outcome": {
-          "player-id-B": { "goal": 1 },
-          "player-id-C": { "goal": 0 }
+        "scores": {
+          "player-id-B": true,
+          "player-id-C": false
         }
       },
       "player-id-B": {
         "shoot": { "player-id-A": 1, "player-id-C": 2 },
         "keep":  { "player-id-A": 2, "player-id-C": 0 },
-        "outcome": {
-          "player-id-A": { "goal": 0 },
-          "player-id-C": { "goal": 1 }
+        "scores": {
+          "player-id-A": false,
+          "player-id-C": true
         }
       },
       "player-id-C": {
         "shoot": { "player-id-A": 0, "player-id-B": 1 },
         "keep":  { "player-id-A": 1, "player-id-B": 2 },
-        "outcome": {
-          "player-id-A": { "goal": 1 },
-          "player-id-B": { "goal": 0 }
+        "scores": {
+          "player-id-A": true,
+          "player-id-B": false
         }
       }
     },
@@ -61,7 +61,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  For instance `state[0]["player-id-A"]["shoot"]["player-id-B"]` is `2` (A shoots right against B), `state[0]["player-id-A"]["keep"]["player-id-B"]` is `0` (A keeps left against B), and `state[0]["player-id-A"]["outcome"]["player-id-B"]` is `1` (A’s shot on B scored).
+  For instance `state[0]["player-id-A"]["shoot"]["player-id-B"]` is `2` (A shoots right against B), `state[0]["player-id-A"]["keep"]["player-id-B"]` is `0` (A keeps left against B), and `state[0]["player-id-A"]["scores"]["player-id-B"]` is `true` (A’s shot on B scored).
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
