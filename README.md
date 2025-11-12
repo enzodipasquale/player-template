@@ -31,14 +31,28 @@ Run `.github/workflows/register.yml` from the Actions.
     {
       "_turnId": 1,
       "player-id-A": {
-        "shoot": { "player-id-B": 2 },
-        "keep":  { "player-id-B": 0 },
-        "outcome": { "player-id-B": { "goal": 1 } }
+        "shoot": { "player-id-B": 2, "player-id-C": 0 },
+        "keep":  { "player-id-B": 0, "player-id-C": 1 },
+        "outcome": {
+          "player-id-B": { "goal": 1 },
+          "player-id-C": { "goal": 0 }
+        }
       },
       "player-id-B": {
-        "shoot": { "player-id-A": 1 },
-        "keep":  { "player-id-A": 2 },
-        "outcome": { "player-id-A": { "goal": 0 } }
+        "shoot": { "player-id-A": 1, "player-id-C": 2 },
+        "keep":  { "player-id-A": 2, "player-id-C": 0 },
+        "outcome": {
+          "player-id-A": { "goal": 0 },
+          "player-id-C": { "goal": 1 }
+        }
+      },
+      "player-id-C": {
+        "shoot": { "player-id-A": 0, "player-id-B": 1 },
+        "keep":  { "player-id-A": 1, "player-id-B": 2 },
+        "outcome": {
+          "player-id-A": { "goal": 1 },
+          "player-id-B": { "goal": 0 }
+        }
       }
     },
     {

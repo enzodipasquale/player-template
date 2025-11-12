@@ -11,22 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install requests
+    - name: Install dependencies
+      run: pip install requests
 
-      - name: Register player
-        env:
+    - name: Register player
+      env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
-          GITHUB_TOKEN: ${{ secrets.GAME_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GAME_TOKEN }}
           PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
-        run: python register.py
+      run: python register.py
 
 
