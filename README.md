@@ -61,7 +61,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  In this snapshot, `player-id-A` shoots right (direction 2) against `player-id-B`, keeps left (direction 0) against B, and the recorded outcome shows that A’s shot on B scored (goal = 1).
+  In this snapshot, `player-id-A` shoots right (direction 2) against `player-id-B`, keeps left (direction 0) against B, scores againts B..
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
