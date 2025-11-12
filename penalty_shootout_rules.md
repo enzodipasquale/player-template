@@ -8,9 +8,9 @@ The state at turn $t$ is the set $H(t) = \{h_1, …, h_t\}$. Each $h_r$ contains
 
 - `shoot`: opponents → direction ($0$, $1$, or $2$)
 - `keep`: opponents → direction ($0$, $1$, or $2$)
-- `outcome`: opponents → `goal' $1$ or $0$
+- `scores`: opponents → `True` if the shot scored, `False` otherwise
 
-Until a duel resolves, the corresponding row in `outcome` remains empty.
+Until a duel resolves, the corresponding row in `scores` remains empty.
 
 ## Action space
 
