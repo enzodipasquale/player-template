@@ -11,12 +11,12 @@ player_id → {
     opponent_id → {
         "shoot": direction ($0$, $1$, or $2$),
         "keep": opponent's defence direction ($0$, $1$, or $2$),
-        "score": True if the shot scored, False otherwise
+        "outcome": True if the shot scored, False otherwise
     }
 }
 ```
 
-Until a duel resolves, the `score` field is omitted (or `null`). The `keep` field always reports the keeper’s choice (the opponent listed in the key).
+Until a duel resolves, the `outcome` field is omitted (or `null`). The `keep` field always reports the keeper’s choice (the opponent listed in the key).
 
 ## Action space
 

@@ -31,16 +31,16 @@ Run `.github/workflows/register.yml` from the Actions.
     {
       "_turnId": 1,
       "player-id-A": {
-        "player-id-B": { "shoot": 2, "keep": 0, "score": true },
-        "player-id-C": { "shoot": 0, "keep": 1, "score": false }
+        "player-id-B": { "shoot": 2, "keep": 0, "outcome": true },
+        "player-id-C": { "shoot": 0, "keep": 1, "outcome": false }
       },
       "player-id-B": {
-        "player-id-A": { "shoot": 1, "keep": 2, "score": false },
-        "player-id-C": { "shoot": 2, "keep": 0, "score": true }
+        "player-id-A": { "shoot": 1, "keep": 2, "outcome": false },
+        "player-id-C": { "shoot": 2, "keep": 0, "outcome": true }
       },
       "player-id-C": {
-        "player-id-A": { "shoot": 0, "keep": 1, "score": true },
-        "player-id-B": { "shoot": 1, "keep": 2, "score": false }
+        "player-id-A": { "shoot": 0, "keep": 1, "outcome": true },
+        "player-id-B": { "shoot": 1, "keep": 2, "outcome": false }
       }
     },
     {
@@ -49,7 +49,7 @@ Run `.github/workflows/register.yml` from the Actions.
     }
   ]
   ```
-  In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summerizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), goal was scored (`true`).
+  In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
 - `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
 
 Store or inspect this data to drive smarter strategies.
