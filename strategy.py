@@ -9,6 +9,7 @@ import requests
 
 SERVER_URL = os.getenv("SERVER_URL")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+PLAYER_NAME = os.getenv("PLAYER_NAME")
 
 
 def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
@@ -30,10 +31,13 @@ def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
 def main():
     if not SERVER_URL:
         raise SystemExit("SERVER_URL env var required")
+    if not PLAYER_NAME:
+        raise SystemExit("PLAYER_NAME env var required")
 
     status = requests.get(
         f"{SERVER_URL}/status",
         headers={"Authorization": f"Bearer {GITHUB_TOKEN}"},
+        params={"player_name": PLAYER_NAME},
         timeout=10,
     )
     status.raise_for_status()
@@ -46,7 +50,7 @@ def main():
             "Content-Type": "application/json",
             "Authorization": f"Bearer {GITHUB_TOKEN}",
         },
-        json={"action": action},
+        json={"action": action, "player_name": PLAYER_NAME},
         timeout=10,
     )
 
