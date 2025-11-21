@@ -9,21 +9,21 @@ import requests
 def main() -> None:
     # Workflows and local runs both rely on these secrets.
     server_url = os.getenv("SERVER_URL", "").strip()
-    github_token = os.getenv("GITHUB_TOKEN", "").strip()
+    game_token = os.getenv("GAME_TOKEN", "").strip()
     player_name = os.getenv("PLAYER_NAME", "").strip()
 
     # Print what we know without leaking actual secrets.
     print(
         f"[register] Config state: SERVER_URL={'set' if server_url else 'missing'}, "
-        f"GITHUB_TOKEN={'set' if github_token else 'missing'}, "
+        f"GAME_TOKEN={'set' if game_token else 'missing'}, "
         f"PLAYER_NAME={'set' if player_name else 'missing'}",
         flush=True,
     )
 
     if not server_url:
         raise SystemExit("SERVER_URL environment variable not set")
-    if not github_token:
-        raise SystemExit("GITHUB_TOKEN environment variable not set")
+    if not game_token:
+        raise SystemExit("GAME_TOKEN environment variable not set")
     if not player_name:
         raise SystemExit("PLAYER_NAME environment variable not set")
 
@@ -39,7 +39,7 @@ def main() -> None:
             f"{server_url}/register",
             headers={
                 "Content-Type": "application/json",
-                "Authorization": f"Bearer {github_token}",
+                "Authorization": f"Bearer {game_token}",
             },
             json={"player_name": player_name},
             timeout=10,
