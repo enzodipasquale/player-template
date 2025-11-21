@@ -8,7 +8,7 @@ import requests
 
 
 SERVER_URL = os.getenv("SERVER_URL")
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GAME_TOKEN = os.getenv("GAME_TOKEN")
 PLAYER_NAME = os.getenv("PLAYER_NAME")
 
 
@@ -36,7 +36,7 @@ def main():
 
     status = requests.get(
         f"{SERVER_URL}/status",
-        headers={"Authorization": f"Bearer {GITHUB_TOKEN}"},
+        headers={"Authorization": f"Bearer {GAME_TOKEN}"},
         params={"player_name": PLAYER_NAME},
         timeout=10,
     )
@@ -48,7 +48,7 @@ def main():
         f"{SERVER_URL}/action",
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {GITHUB_TOKEN}",
+            "Authorization": f"Bearer {GAME_TOKEN}",
         },
         json={"action": action, "player_name": PLAYER_NAME},
         timeout=10,
