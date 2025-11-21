@@ -26,7 +26,8 @@ jobs:
 
     - name: Run strategy
       env:
-        GITHUB_TOKEN: ${{ secrets.GAME_TOKEN }}
+        GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
         SERVER_URL: ${{ secrets.SERVER_URL }}
+        PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
       run: python strategy.py
 
