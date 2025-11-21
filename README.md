@@ -3,7 +3,7 @@
 
 ## 1. Quick Start Checklist
 
-1. **Copy the template** – Fork this repository into your own GitHub account if you want the automated player to run. You can clone first to experiment locally, but GitHub Actions only executes in your fork.
+1. **Fork this repository** – Fork it to your own GitHub account so GitHub Actions can run your player automatically.
 2. **Add repository secrets** – In **Settings → Secrets and variables → Actions** create:
    - `PLAYER_NAME` – the public name you want the server to display.
    - `SERVER_URL` – the base UBX server URL.
@@ -50,13 +50,13 @@ Run `.github/workflows/register.yml` from the Actions.
   ]
   ```
   In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
-- `turnId`, `registrationPhase`, `gamePhase`: metadata describing where the match is.
+- `turnId`: the current turn number (metadata describing where the match is).
 
 Store or inspect this data to drive smarter strategies.
 
 ## 5. Building the action payload
 
-Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For exampleif the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
+Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For example, if the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
 
 ```json
 {
