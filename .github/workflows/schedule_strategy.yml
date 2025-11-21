@@ -29,5 +29,11 @@ jobs:
         GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
         SERVER_URL: ${{ secrets.SERVER_URL }}
         PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
-      run: python strategy.py
+      run: |
+        if python strategy.py; then
+          echo "✅ Strategy executed successfully"
+        else
+          echo "❌ Strategy execution failed"
+          exit 1
+        fi
 
