@@ -15,33 +15,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-
-    - name: Cache pip packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/strategy.py') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        cache: 'pip'
 
     - name: Install dependencies
-      run: pip install numpy requests
+      run: pip install --no-cache-dir -r requirements.txt
 
     - name: Run strategy
       env:
         GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
         SERVER_URL: ${{ secrets.SERVER_URL }}
         PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
-      run: |
-        if python strategy.py; then
-          echo "✅ Strategy executed successfully"
-        else
-          echo "❌ Strategy execution failed"
-          exit 1
-        fi
+      run: python strategy.py
 
