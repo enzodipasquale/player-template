@@ -17,11 +17,12 @@
 
 ## 2. Registration
 
-Run the registration script locally or via GitHub Actions:
+Register your player by running the registration workflow via GitHub Actions:
 
-```bash
-python register.py
-```
+1. Go to **Actions** tab in your repository
+2. Select the **Register Player** workflow from the left sidebar
+3. Click **Run workflow** → **Run workflow** button
+4. The workflow will register your player using the secrets you configured
 
 **Required for registration:**
 - `GAME_TOKEN` must have `Actions: Write` and `Contents: Read` permissions (used for authentication, workflow triggering, and server API calls)
