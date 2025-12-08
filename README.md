@@ -27,8 +27,16 @@ Once registered, the server will automatically trigger your workflow after each 
 
 ## 3. What the scripts do
 
-- `register.py` validates secrets, reads `PLAYER_NAME` from the environment, posts `{ "player_name": PLAYER_NAME }` to `/register`, and logs the result. 
-- `strategy.py` fetches `/status`, builds an action, and posts it back via `/action`. Customise it by editing `strategy(state)` to pick `shoot`/`keep` directions based on the state. The `strategy()` function must return the same dictionary described below.
+The scripts interact with the game server via REST API endpoints:
+
+- **`register.py`** – Validates required secrets, reads `PLAYER_NAME` from the environment, and sends a POST request to `/register` with your player name and repository information. The server authenticates using your `GAME_TOKEN` and stores your player configuration.
+
+- **`strategy.py`** – Executes your game strategy:
+  1. Sends a GET request to `/status?player_name=YOUR_NAME` to retrieve the current game state (turn, opponents, history)
+  2. Calls your `strategy(state)` function with the game state
+  3. Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
+  
+  Customise your strategy by editing the `strategy(state)` function to analyze the game state and return action directions. The function must return the dictionary format described below.
 
 ## 4. Understanding the `/status` payload
 
