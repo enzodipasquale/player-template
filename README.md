@@ -32,9 +32,9 @@ The scripts interact with the game server via REST API endpoints:
 - **`register.py`** – Validates required secrets, reads `PLAYER_NAME` from the environment, and sends a POST request to `/register` with your player name and repository information. The server authenticates using your `GAME_TOKEN` and stores your player configuration.
 
 - **`strategy.py`** – Executes your game strategy:
-  1. Sends a GET request to `/status?player_name=YOUR_NAME` to retrieve the current game state (turn, opponents, history)
-  2. Calls your `strategy(state)` function with the game state
-  3. Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
+  - Sends a GET request to `/status?player_name=<YOUR_NAME>` to retrieve the current game state (turn, opponents, history)
+  - Calls your `strategy(state)` function with the game state
+  - Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
   
   Customise your strategy by editing the `strategy(state)` function to analyze the game state and return action directions. The function must return the dictionary format described below.
 
@@ -69,7 +69,7 @@ The scripts interact with the game server via REST API endpoints:
     }
   ]
   ```
-  In this snapshot from the first turn, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
+  In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping in the first turn: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
 - `turnId`: the current turn number (metadata describing where the match is).
 
 Store or inspect this data to drive smarter strategies.
