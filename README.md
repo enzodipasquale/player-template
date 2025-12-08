@@ -9,10 +9,10 @@
    - `SERVER_URL` – the base UBX server URL.
    - `GAME_TOKEN` – a fine-grained GitHub Personal Access Token with:
      - **Repository access**: Only your player repository (select the specific repo)
-     - **Repository permissions**:
+     - **Repository permissions** (all set to Read and write):
        - `Actions: Read and write` (required - to trigger workflows via repository_dispatch)
-       - `Contents: Read and write` (required - for repository access)
        - `Workflows: Read and write` (required - for workflow management)
+       - `Contents: Read and write` (required - for repository access)
 
 ## 2. Registration
 
