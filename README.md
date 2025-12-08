@@ -69,7 +69,7 @@ The scripts interact with the game server via REST API endpoints:
     }
   ]
   ```
-  In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
+  In this snapshot from the first turn, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
 - `turnId`: the current turn number (metadata describing where the match is).
 
 Store or inspect this data to drive smarter strategies.
