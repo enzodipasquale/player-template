@@ -9,12 +9,13 @@
    - `SERVER_URL` – the base UBX server URL.
    - `GAME_TOKEN` – a fine-grained GitHub Personal Access Token with:
      - **Repository access**: Only your player repository (select the specific repo)
-     - **Permissions**:
-       - `Actions: Write` (required - to trigger workflows via repository_dispatch)
-       - `Actions: Read` (required - to check workflow run status)
-       - Account permissions: Read-only (default - for server authentication via `/user` endpoint)
+     - **Repository permissions**:
+       - `Actions: Write` (required - to trigger workflows via repository_dispatch and for the server to trigger your workflow)
+       - `Contents: Read` (required - for repository access)
+     - **Account permissions**: 
+       - `Read-only` (default - for server authentication via GitHub API `/user` endpoint)
    
-   **Note:** `GITHUB_REPO` is automatically detected from the repository, so you don't need to set it as a secret!
+   **Note:** `GITHUB_REPOSITORY` is automatically detected from the repository context in GitHub Actions, so you don't need to set it as a secret!
 
 ## 2. Registration
 
@@ -25,8 +26,7 @@ python register.py
 ```
 
 **Required for registration:**
-- `GITHUB_REPOSITORY` is automatically set by GitHub Actions (no need to configure)
-- `GAME_TOKEN` must have `Actions: Write` permission (used for both authentication and triggering)
+- `GAME_TOKEN` must have `Actions: Write` and `Contents: Read` permissions (used for authentication, workflow triggering, and server API calls)
 - The server will automatically trigger your workflow after each turn
 
 ## 3. What the scripts do
