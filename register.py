@@ -14,7 +14,7 @@ def main() -> None:
     
     # Required fields for automated workflow triggering
     # GITHUB_REPOSITORY is automatically set by GitHub Actions (format: "owner/repo")
-    # Fall back to GITHUB_REPO secret if not in Actions environment
+    # GITHUB_REPOSITORY is automatically set by GitHub Actions; GITHUB_REPO can be used as fallback
     github_repo = os.getenv("GITHUB_REPOSITORY", os.getenv("GITHUB_REPO", "")).strip()
     github_workflow_name = os.getenv("GITHUB_WORKFLOW_NAME", "").strip()  # Default: "play-game.yml"
 
