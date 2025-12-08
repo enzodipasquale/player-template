@@ -33,6 +33,8 @@ def main():
         raise SystemExit("SERVER_URL env var required")
     if not PLAYER_NAME:
         raise SystemExit("PLAYER_NAME env var required")
+    if not GAME_TOKEN:
+        raise SystemExit("GAME_TOKEN env var required")
 
     status = requests.get(
         f"{SERVER_URL}/status",
@@ -40,6 +42,13 @@ def main():
         params={"player_name": PLAYER_NAME},
         timeout=10,
     )
+    if not status.ok:
+        error_detail = status.text or status.reason
+        raise SystemExit(
+            f"Failed to get game status: {status.status_code} {error_detail}\n"
+            f"URL: {SERVER_URL}/status?player_name={PLAYER_NAME}\n"
+            f"Check that GAME_TOKEN and PLAYER_NAME secrets are set correctly in GitHub."
+        )
     status.raise_for_status()
     payload = status.json()
 
