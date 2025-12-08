@@ -21,6 +21,7 @@ jobs:
       run: pip install -r requirements.txt
         
     - name: Run Strategy
+      continue-on-error: true
       env:
         SERVER_URL: ${{ secrets.SERVER_URL }}
         GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
