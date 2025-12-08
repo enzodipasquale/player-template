@@ -14,8 +14,6 @@
        - `Contents: Read` (required - for repository access)
      - **Account permissions**: 
        - `Read-only` (default - for server authentication via GitHub API `/user` endpoint)
-   
-   **Note:** `GITHUB_REPOSITORY` is automatically detected from the repository context in GitHub Actions, so you don't need to set it as a secret!
 
 ## 2. Registration
 
