@@ -10,10 +10,9 @@
    - `GAME_TOKEN` – a fine-grained GitHub Personal Access Token with:
      - **Repository access**: Only your player repository (select the specific repo)
      - **Repository permissions**:
-       - `Actions: Write` (required - to trigger workflows via repository_dispatch and for the server to trigger your workflow)
-       - `Contents: Read` (required - for repository access)
-     - **Account permissions**: 
-       - `Read-only` (default - for server authentication via GitHub API `/user` endpoint)
+       - `Actions: Read and write` (required - to trigger workflows via repository_dispatch)
+       - `Contents: Read and write` (required - for repository access)
+       - `Workflows: Read and write` (required - for workflow management)
 
 ## 2. Registration
 
