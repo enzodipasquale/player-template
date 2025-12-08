@@ -24,9 +24,7 @@ Register your player by running the registration workflow via GitHub Actions:
 3. Click **Run workflow** → **Run workflow** button
 4. The workflow will register your player using the secrets you configured
 
-**Required for registration:**
-- `GAME_TOKEN` must have `Actions: Write` and `Contents: Read` permissions (used for authentication, workflow triggering, and server API calls)
-- The server will automatically trigger your workflow after each turn
+Once registered, the server will automatically trigger your workflow after each turn.
 
 ## 3. What the scripts do
 
