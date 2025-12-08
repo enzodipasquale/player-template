@@ -1,0 +1,30 @@
+name: Play Game
+
+on:
+  repository_dispatch:
+    types: [play-game]
+
+jobs:
+  play-game:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+        
+    - name: Run Strategy
+      env:
+        SERVER_URL: ${{ secrets.SERVER_URL }}
+        GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
+        PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
+        GITHUB_REPO: ${{ github.repository }}
+      run: python strategy.py
+

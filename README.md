@@ -7,11 +7,27 @@
 2. **Add repository secrets** – In **Settings → Secrets and variables → Actions** create:
    - `PLAYER_NAME` – the public name you want the server to display.
    - `SERVER_URL` – the base UBX server URL.
-   - `GAME_TOKEN` – a fine-grained GitHub token with `Actions` and `Workflows` read/write scopes.
+   - `GAME_TOKEN` – a fine-grained GitHub Personal Access Token with:
+     - **Repository access**: Only your player repository (select the specific repo)
+     - **Permissions**:
+       - `Actions: Write` (required - to trigger workflows via repository_dispatch)
+       - `Actions: Read` (required - to check workflow run status)
+       - Account permissions: Read-only (default - for server authentication via `/user` endpoint)
+   
+   **Note:** `GITHUB_REPO` is automatically detected from the repository, so you don't need to set it as a secret!
 
 ## 2. Registration
 
-Run `.github/workflows/register.yml` from the Actions.
+Run the registration script locally or via GitHub Actions:
+
+```bash
+python register.py
+```
+
+**Required for registration:**
+- `GITHUB_REPOSITORY` is automatically set by GitHub Actions (no need to configure)
+- `GAME_TOKEN` must have `Actions: Write` permission (used for both authentication and triggering)
+- The server will automatically trigger your workflow after each turn
 
 ## 3. What the scripts do
 
