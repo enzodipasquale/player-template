@@ -32,7 +32,7 @@ The scripts interact with the game server via REST API endpoints:
 - **`register.py`** – Validates required secrets, reads `PLAYER_NAME` from the environment, and sends a POST request to `/register` with your player name and repository information. The server authenticates using your `GAME_TOKEN` and stores your player configuration.
 
 - **`strategy.py`** – Executes your game strategy:
-  - Sends a GET request to `/status?player_name=<YOUR_NAME>` to retrieve the current game state (turn, opponents, history)
+  - Sends a GET request to `/status?player_name=<PLAYER_NAME>` to retrieve the current game state (turn, opponents, history), where `<PLAYER_NAME>` is the value from your `PLAYER_NAME` secret
   - Calls your `strategy(state)` function with the game state
   - Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
   
